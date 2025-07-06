@@ -1,4 +1,4 @@
-
+ 
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
@@ -37,6 +37,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   my_new_project:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+      staging:
+        +schema: stg
+        +materialized: table
+      intermediate:
+        +schema: int
+        +materialized: table
+      mart:
+        +schema: mart
+        +materialized: table
+      test:
+        +schema: test
+        +materialized: table

@@ -40,6 +40,10 @@ models:
       staging:
         +schema: stg
         +materialized: table
+        +pre-hook:
+          - insert into audit_db.audit_sch.dbt_audits(model_name, status) values ('{{this.name}}', 'Start'); commit;""
+        +post-hook:
+          - "insert into audit_db.audit_sch.dbt_audits(model_name, status) values ('{{this.name}}', 'End'); commit;"
       intermediate:
         +schema: int
         +materialized: table
@@ -49,3 +53,8 @@ models:
       test:
         +schema: test
         +materialized: table
+
+on-run-start: 
+  - "insert into audit_db.audit_sch.dbt_audits(model_name, status) values ('{{this.name}}', 'Start'); commit;"
+on-run-end: 
+  - "insert into audit_db.audit_sch.dbt_audits(model_name, status) values ('{{this.name}}', 'End'); commit;"

@@ -1,0 +1,14 @@
+sources:
+  - name: raw_src # this is the source_name
+    database: sales_db
+    schema: raw_schema
+    tables:
+      - name: raw_customers
+      - name: raw_orders
+      - name: raw_products
+      - name: raw_users
+      - name: transactions
+      - name: emp
+        identifier: employees
+
+      - name: orders_status

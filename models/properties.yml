@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "This table contains information about products"
+    columns:
+      - name: price
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - accepted_values:
+              values: ["Grocery", "Clothing", "Furniture", "Electronics"]
+      - name: id # Primary key in products table
+        tests: # Check if the referential integrity between id column(primary key from stg_products) and customer_id(foreign key from stg_orders)
+               # Note here in the following relationships i dont have product id column in orders
+               # So i was using the customer id instead from stg_orders  
+          - unique
+          - relationships: # Check referential integrity between id and product_id
+              to: ref('stg_orders') #Foreign key column
+              field: customer_id # Foreign table
